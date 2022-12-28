@@ -1,0 +1,95 @@
+/* Base css will be the base css rules for all the views folder */
+/* Hence most suitable for the Global variables and color pallettes */
+/* Due to css inheritance we get our general css rule to all the similar tags */
+* {
+    box-sizing: border-box;  
+    /* it consider width of all the element and make it even if they have their specific border */
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+    /* Global CSS variable */
+    --color-grey-50 :  rgb(232, 232, 232);
+    --color-grey-100 : rgb(184, 184, 180);
+    --color-grey-200 : rgb(168, 163, 163);
+    --color-grey-300 : rgb(146, 146, 144);
+    --color-grey-400 : rgb(92, 92, 92);
+    --color-grey-500 : rgb(55, 55, 54);
+    --color-grey-600 : rgb(36, 36, 33);
+    --color-grey-700 : rgb(26, 26, 23);
+
+    --color-white-contrast : white;
+    --color-orange-contrast : orange;
+    --color-black-contrast: black;
+    
+    --color-primary-blue-50 : rgb(151, 219, 242);
+    --color-primary-blue-100 : rgb(119, 206, 221);
+    --color-primary-blue-200 : rgb(106, 187, 206);
+    --color-primary-blue-300 : rgb(80, 205, 205);
+    --color-primary-blue-400 : rgb(27, 132, 167);
+    --color-primary-blue-500 : rgb(31, 108, 156);
+    --color-primary-blue-600 : rgb(12, 72, 100);
+    --color-primary-blue-700 : rgb(5, 28, 58);
+
+    --color-error-light : rgb(246, 172, 143);
+    --color-error-dark : rgb(211, 56, 56);
+
+    --color-bg-100 : rgb(153, 179, 193);
+
+    /* Spacing and sizes */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+
+    /* border and shadows */
+
+    --border-radius-small: 4px;
+    --border-radius-medium: 6px;
+
+    --shadow-medium: 0 2px 8px rgba(0,0,0,0.2);
+
+}
+
+body {
+    background-color: var(--color-bg-100);
+    color: var(--color-primary-blue-700);
+    margin: 0;
+}
+
+main {
+    width: 90%;
+    max-width: 50rem;
+    margin: 0 auto;
+}
+
+ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-grey-700);
+}
+
+.btn {
+    cursor: pointer;
+    font: inherit;
+    padding: var(--space-2) var(--space-6);
+    background-color: var(--color-primary-blue-50);
+    color: var(--color-black-contrast);
+    border: 1px solid var(--color-primary-blue-500);
+    border-radius: var(--border-radius-small);
+}
+
+.btn:hover , .btn:active {
+    background-color: var(--color-primary-blue-500);
+    border-color: var(--color-white-contrast);
+    color: var(--color-orange-contrast);
+}
