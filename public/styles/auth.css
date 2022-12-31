@@ -7,7 +7,7 @@ form {
     max-width: 25rem;
     margin: var(--space-8) auto;
     padding: var(--space-4);
-    background-color: var(--color-grey-50);
+    background-color: var(--color-grey-100);
     border-radius: var(--border-radius-medium);
     text-align: center;
 }
