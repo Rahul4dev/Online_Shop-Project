@@ -3,8 +3,10 @@ const path = require("path"); // builtin path module for file directory to look 
 
 const express = require("express");
 
+const db = require('./data/database');
+
 const authRoutes = require("./routes/auth.routes");
-const exp = require("constants");
+
 
 const app = express();
 
@@ -15,6 +17,14 @@ app.use(express.static('public')); // it will provide this folder to all the fil
 
 app.use(authRoutes); // check for every incoming request
 
-app.listen(3000); // <our domain which we listen>
+db.connectToDatabase()
+    .then(function() {
+        app.listen(3000);
+    })
+    .catch(function(error) {
+        console.log('Failed to connect to database');
+        console.log(error);
+    });
+ // <our domain which we listen>
 
 // </Rahul>
