@@ -30,6 +30,14 @@ class User {
         return db.getDb().collection('users').findOne({email: this.email});
     }
 
+    async existAlready() {
+       const existingUser =  await this.isUserExist();
+       if(existingUser) {
+        return true;
+       }
+       return false;
+    }
+
     comparePassword(hashedPassword) {
         return bcrypt.compare(this.password, hashedPassword);
     }
