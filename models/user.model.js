@@ -26,12 +26,12 @@ class User {
         });        
     }
 
-    isUserExist() {
+    isUserExists() {
         return db.getDb().collection('users').findOne({email: this.email});
     }
 
-    async existAlready() {
-       const existingUser =  await this.isUserExist();
+    async existsAlready() {
+       const existingUser =  await this.isUserExists();
        if(existingUser) {
         return true;
        }

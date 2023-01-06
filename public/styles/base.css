@@ -93,3 +93,20 @@ a {
     border-color: var(--color-white-contrast);
     color: var(--color-orange-contrast);
 }
+
+.alert {
+    border-radius: var(--border-radius-small);
+    background-color: var(--color-error-light);
+    color: var(--color-error-dark);
+    padding: var(--space-4);
+}
+
+.alert h2 {
+    font-size: 1rem;
+    margin: var(--space-2);
+    text-transform: uppercase;
+}
+
+.alert p {
+    margin: var(--space-2);
+}

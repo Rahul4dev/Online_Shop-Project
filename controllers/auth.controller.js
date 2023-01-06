@@ -2,25 +2,60 @@
 const User = require('../models/user.model');
 const authUtil = require('../utility/authentication');
 const validation= require("../utility/validation");
+const sessionFlash = require('../utility/session-flash');
 
 function getSignup(req, res) {
-  res.render("customer/auth/signup");
+  let sessionData = sessionFlash.getSessionData(req);
+
+  if(!sessionData) {  // Error Handling for empty sessionData
+    sessionData = {
+      email: '',
+      confirmEmail: '',
+      password: '',
+      fullname: '',
+      street: '',
+      postal: '',
+      city: '',
+    };
+  }
+  res.render("customer/auth/signup", {inputData: sessionData});
 }
 
 async function signup(req, res, next) {
+  const enteredData = {
+        email: req.body.email,
+        confirmEmail: req.body['confirm-email'],
+        password: req.body.password,
+        fullname: req.body.fullname,
+        street: req.body.street,
+        postal: req.body.postal,
+        city: req.body.city
+  };
+
   if (
-      !validation.userDetailAreValid(
-        req.body.email,
-        req.body.password,
-        req.body.fullname,
-        req.body.street,
-        req.body.postal,
-        req.body.city
-      )  || !validation.emailIsCOnfirmed(req.body.email, req.body['confirm-email'])
+    !validation.userDetailAreValid(
+      req.body.email,
+      req.body.password,
+      req.body.fullname,
+      req.body.street,
+      req.body.postal,
+      req.body.city
+    ) ||
+    !validation.emailIsConfirmed(req.body.email, req.body["confirm-email"])
   ) {
-    res.redirect("/signup");
+    sessionFlash.flashDataToSession(
+      req,
+      {
+        errorMessage: "Please check your Input.",
+        ...enteredData,
+      },
+      function () {
+        res.redirect("/signup");
+      }
+    );
     return;
   }
+
   const user = new User(
     req.body.email,
     req.body.password,
@@ -29,21 +64,25 @@ async function signup(req, res, next) {
     req.body.postal,
     req.body.city
   );
+  
 
   try {
-    const existAlready = await user.existAlready();
-    if (existAlready) {
-      res.redirect("/signup");
+    const existsAlready = await user.existsAlready();
+
+    if (existsAlready) {
+      sessionFlash.flashDataToSession(
+        req,
+        {
+          errorMessage: "User Exist already, Try Logging in instead!",
+          ...enteredData,
+        },
+        function () {
+          res.redirect("/signup");
+        }
+      );
       return;
     }
-  } catch (error) {
-    next(error);
-    return;
-  }
-  
-  // error handling for async functions
-  try {
-    await user.signup();    
+    await user.signup(); // error handling for async functions
   } catch (error) {
     next(error);
     return;
@@ -54,23 +93,41 @@ async function signup(req, res, next) {
 }
 
 function getLogin(req, res) {
- res.render("customer/auth/login");
+  let sessionData = sessionFlash.getSessionData(req);
+
+  if (!sessionData) {
+    // Error Handling for empty sessionData
+    sessionData = {
+      email: "",
+      password: "",
+    };
+  }
+  res.render("customer/auth/login", { inputData: sessionData });
 }
 
 async function login(req, res, next) {
   const user = new User(req.body.email, req.body.password);
   let existingUser, passwordIsCorrect;
   try {
-    existingUser = await user.isUserExist();
+    existingUser = await user.isUserExists();
   } catch (error) {
     next(error);
     return;
   }
 
+  const sessionErrorData = {
+    errorMessage: "Invalid Credentials",
+    email: user.email,
+    password: user.password,
+  };
+
   if (!existingUser) {
-    res.redirect("/login");
+    sessionFlash.flashDataToSession(req, sessionErrorData , function() {
+      res.redirect("/login");
+    })
     return;
   }
+
   
   try{
     passwordIsCorrect = await user.comparePassword(existingUser.password);
@@ -80,8 +137,10 @@ async function login(req, res, next) {
   }
 
   if(!passwordIsCorrect) {
-     res.redirect("/login");
-     return;
+    sessionFlash.flashDataToSession(req, sessionErrorData , function () {
+      res.redirect("/login");
+    });
+    return;
   }
 
   authUtil.createUserSession(req, existingUser, function () {

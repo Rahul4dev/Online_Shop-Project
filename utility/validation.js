@@ -19,11 +19,11 @@ function userDetailAreValid(email, password, name, street, postal, city) {
         !isEmpty(city));
 }
 
-function emailIsCOnfirmed(email, confirmEmail) {
+function emailIsConfirmed(email, confirmEmail) {
     return email === confirmEmail;
 }
 
 module.exports = {
-    userDetailAreValid,
-    emailIsCOnfirmed: emailIsCOnfirmed    
+    userDetailAreValid : userDetailAreValid,
+    emailIsConfirmed: emailIsConfirmed    
 } 
