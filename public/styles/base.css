@@ -90,7 +90,7 @@ a {
 }
 
 .btn:hover , .btn:active {
-    background-color: var(--color-primary-blue-500);
+    background-color: var(--color-primary-blue-50);
     border-color: var(--color-white-contrast);
     color: var(--color-orange-contrast);
 }
