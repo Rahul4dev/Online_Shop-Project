@@ -24,6 +24,7 @@ app.set("view engine", "ejs"); // to view our pages
 app.set("views", path.join(__dirname, "views")); // location of our views pages
 
 app.use(express.static('public')); // it will provide this folder to all the files statically
+app.use('/products/assets', express.static('product-data'));
 app.use(express.urlencoded({ extended: false}));
 
 const sessionConfig = createSessionConfig();
