@@ -11,6 +11,7 @@ const db = require('./data/database');
 const baseRoutes = require('./routes/base.routes');
 const authRoutes = require("./routes/auth.routes");
 const productsRoutes = require('./routes/products.routes');
+const adminRoutes = require('./routes/admin.routes');
 
 const addCsrfTokenMiddleware = require('./middleware/csrf-token');
 const errorHandlerMiddleware = require('./middleware/errorHandler');
@@ -36,6 +37,7 @@ app.use(checkAuthStatusMiddleware);
 app.use(baseRoutes);
 app.use(authRoutes); // check for every incoming request
 app.use(productsRoutes);
+app.use('/admin', adminRoutes);  // path which start with /admin will be accessed 
 
 app.use(errorHandlerMiddleware);
 
