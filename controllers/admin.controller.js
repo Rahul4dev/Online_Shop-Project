@@ -58,11 +58,28 @@ async function updateProduct(req, res, next) {
     res.redirect('/admin/products');
 }
 
+async function deleteProduct(req, res, next) {
+    let product;
+    try {
+        product = await Product.findById(req.params.id);        
+        await product.remove();
+    } catch (error) {
+        return next(error);
+    }
+
+    // res.redirect('/admin/products');
+    // since we have used ajax request respond handling as we were redirecting the same page , So here we can't redirect but we can send response as a json data. thus through Ajax, we can just delete the product without reloading whole page again. 
+    res.json({
+        message: 'Deleted Product!',
+    });
+}
+
 
 module.exports = {
     getProducts: getProducts,
     getNewProducts: getNewProducts,
     createNewProducts: createNewProducts,
-    getUpdateProduct:  getUpdateProduct,
-    updateProduct: updateProduct
+    getUpdateProduct: getUpdateProduct,
+    updateProduct: updateProduct,
+    deleteProduct: deleteProduct,
 }
