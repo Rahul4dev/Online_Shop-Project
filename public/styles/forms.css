@@ -22,3 +22,20 @@ input, textarea {
 input:hover , textarea:hover {
     border-color: rgb(122, 211, 211);
 }
+
+#image-upload-control {
+    display: flex;
+    align-items: center;
+}
+
+#image-upload-control input {
+    max-width: 15rem;
+}
+
+#image-upload-control img {
+    display: none;
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    border-radius: var(--border-radius-small);
+}
