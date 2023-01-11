@@ -36,6 +36,7 @@ html {
     --color-error-dark : rgb(211, 56, 56);
 
     --color-bg-100 : rgb(153, 179, 193);
+    --color-bg-200 : rgb(162, 163, 207);
 
     /* Spacing and sizes */
     --space-1: 0.25rem;

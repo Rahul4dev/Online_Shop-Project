@@ -6,6 +6,10 @@ const router = express.Router();
 
 //.... configurations of the router
 
-router.post('/items' , cartController.addCartItem );   //  /cart is added in app.use
+//  /cart is already added in app.use..
+router.get('/', cartController.getCart);
+
+router.post('/items' , cartController.addCartItem );   
+
 
 module.exports = router;
