@@ -16,7 +16,7 @@ const adminRoutes = require('./routes/admin.routes');
 const addCsrfTokenMiddleware = require('./middleware/csrf-token');
 const errorHandlerMiddleware = require('./middleware/errorHandler');
 const checkAuthStatusMiddleware = require('./middleware/check-auth');
-
+const protectRoutesMiddleware = require('./middleware/protectRoutes');
 
 const app = express();
 
@@ -38,7 +38,9 @@ app.use(checkAuthStatusMiddleware);
 app.use(baseRoutes);
 app.use(authRoutes); // check for every incoming request
 app.use(productsRoutes);
-app.use('/admin', adminRoutes);  // path which start with /admin will be accessed 
+
+// app.use(protectRoutesMiddleware);  // to protect admin route from unauthorize access
+app.use("/admin", protectRoutesMiddleware, adminRoutes);  // path which start with /admin will get access
 
 app.use(errorHandlerMiddleware);
 
