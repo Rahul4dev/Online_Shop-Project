@@ -13,6 +13,7 @@ const authRoutes = require("./routes/auth.routes");
 const productsRoutes = require('./routes/products.routes');
 const adminRoutes = require('./routes/admin.routes');
 const cartRoutes = require('./routes/cart.routes');
+const ordersRoutes = require('./routes/orders.routes');
 
 const addCsrfTokenMiddleware = require('./middleware/csrf-token');
 const errorHandlerMiddleware = require('./middleware/errorHandler');
@@ -45,8 +46,9 @@ app.use(authRoutes); // check for every incoming request
 app.use(productsRoutes);
 app.use('/cart', cartRoutes);
 
-// app.use(protectRoutesMiddleware);  // to protect admin route from unauthorize access
-app.use("/admin", protectRoutesMiddleware, adminRoutes);  // path which start with /admin will get access
+app.use('/orders', ordersRoutes);
+app.use(protectRoutesMiddleware);  // to protect admin route from unauthorize access
+app.use("/admin", adminRoutes);  // path which start with /admin will get access
 
 app.use(errorHandlerMiddleware);
 

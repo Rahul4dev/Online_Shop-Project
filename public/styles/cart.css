@@ -40,13 +40,19 @@
   font-weight: bold;
 }
 
+#cart-total #cart-total-fallback {
+  font-size: 1rem;
+  font-weight: normal;
+  text-align: center;
+}
+
 @media (min-width: 48rem) {
   .cart-item {
     flex-direction: row;
     justify-content: space-between;
   }
   #cart-total {
-    text-align: right;
+    text-align: left;
   }
 /* 
   #cart-total {
