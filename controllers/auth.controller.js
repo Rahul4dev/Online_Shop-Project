@@ -29,11 +29,11 @@ async function signup(req, res, next) {
         fullname: req.body.fullname,
         street: req.body.street,
         postal: req.body.postal,
-        city: req.body.city
+        city: req.body.city,
   };
 
   if (
-    !validation.userDetailAreValid(
+    !validation.userDetailsAreValid(
       req.body.email,
       req.body.password,
       req.body.fullname,
@@ -107,7 +107,7 @@ function getLogin(req, res) {
 
 async function login(req, res, next) {
   const user = new User(req.body.email, req.body.password);
-  let existingUser, passwordIsCorrect;
+  let existingUser;
   try {
     existingUser = await user.isUserExists();
   } catch (error) {
@@ -128,14 +128,8 @@ async function login(req, res, next) {
     return;
   }
 
+  const passwordIsCorrect = await user.comparePassword(existingUser.password);
   
-  try{
-    passwordIsCorrect = await user.comparePassword(existingUser.password);
-  } catch(error) {
-    next(error);
-    return;
-  }
-
   if(!passwordIsCorrect) {
     sessionFlash.flashDataToSession(req, sessionErrorData , function () {
       res.redirect("/login");
@@ -158,7 +152,7 @@ module.exports = {
   getLogin: getLogin,
   signup: signup,
   login: login,
-  logout: logout
+  logout: logout,
 };
 
 //</Rahul>

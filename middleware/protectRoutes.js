@@ -6,7 +6,7 @@ function protectRoutes(req, res, next) {
         return res.redirect('/401');  // not authenticated
     }
 
-    if(req.path.startsWith('/') && !res.locals.isAdmin) {
+    if(req.path.startsWith('/admin') && !res.locals.isAdmin) {
         return res.redirect('/403');   // not authorize
     }
 

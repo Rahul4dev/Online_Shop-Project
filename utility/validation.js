@@ -10,7 +10,7 @@ function userCredentialsAreValid(email, password) {
         password.trim().length >= 6 );
 }
 
-function userDetailAreValid(email, password, name, street, postal, city) {
+function userDetailsAreValid(email, password, name, street, postal, city) {
     return (
         userCredentialsAreValid(email,password) && 
         !isEmpty(name) &&
@@ -24,6 +24,6 @@ function emailIsConfirmed(email, confirmEmail) {
 }
 
 module.exports = {
-    userDetailAreValid : userDetailAreValid,
+    userDetailsAreValid : userDetailsAreValid,
     emailIsConfirmed: emailIsConfirmed    
 } 

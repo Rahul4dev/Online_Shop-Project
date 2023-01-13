@@ -7,7 +7,7 @@ async function getOrders(req, res, next) {
     res.render('customer/orders/all-orders', { orders: orders });      
     
   } catch (error) {
-    return next(error);
+    next(error);
   }
 }
 

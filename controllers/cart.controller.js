@@ -14,7 +14,7 @@ async function addCartItem(req, res) {
     return;
   }
 
-  let cart = res.locals.cart;
+  const cart = res.locals.cart;
 
   cart.addItem(product);
   req.session.cart = cart;
