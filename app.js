@@ -8,9 +8,9 @@ const expressSession = require('express-session');
 const createSessionConfig = require('./config/session');
 const db = require('./data/database');
 
-const baseRoutes = require('./routes/base.routes');
 const authRoutes = require("./routes/auth.routes");
 const productsRoutes = require('./routes/products.routes');
+const baseRoutes = require('./routes/base.routes');
 const adminRoutes = require('./routes/admin.routes');
 const cartRoutes = require('./routes/cart.routes');
 const ordersRoutes = require('./routes/orders.routes');
@@ -20,6 +20,7 @@ const errorHandlerMiddleware = require('./middleware/errorHandler');
 const checkAuthStatusMiddleware = require('./middleware/check-auth');
 const protectRoutesMiddleware = require('./middleware/protectRoutes');
 const cartMiddleware = require('./middleware/cart');
+const updateCartPricesMiddleware = require('./middleware/update-cart-prices');
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use(expressSession(sessionConfig));
 app.use(csurf());
 
 app.use(cartMiddleware);
+app.use(updateCartPricesMiddleware);
 
 app.use(addCsrfTokenMiddleware);
 app.use(checkAuthStatusMiddleware);
@@ -46,8 +48,8 @@ app.use(authRoutes); // check for every incoming request
 app.use(productsRoutes);
 app.use('/cart', cartRoutes);
 
-app.use('/orders', ordersRoutes);
 app.use(protectRoutesMiddleware);  // to protect admin route from unauthorize access
+app.use('/orders', ordersRoutes);
 app.use("/admin", adminRoutes);  // path which start with /admin will get access
 
 app.use(errorHandlerMiddleware);

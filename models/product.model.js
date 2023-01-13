@@ -22,7 +22,10 @@ class Product {
             error.code = 404;
 			throw error;            
         }
-        const product = await db.getDb().collection('products').findOne({_id: prodId });
+        const product = await db.getDb()
+                                .collection("products")
+                                .findOne({ _id: prodId });
+					
         
         if(!product) {
             const error = new Error('Could not find product with this id');
@@ -34,11 +37,31 @@ class Product {
     }
 
     static async findAll() {
-        const products = await db.getDb().collection('products').find().toArray();
+        const products = await db
+					.getDb()
+					.collection("products")
+					.find()
+					.toArray();
        
         return products.map(function(productDocument) {
             return new Product(productDocument);
        }); 
+    }
+
+    static async findMultiple(ids){
+        const productIds = ids.map(function(id){
+            return new mongoDb.ObjectId(id);
+        });
+
+        const products = await db
+					.getDb()
+					.collection("products")
+					.find({ _id: { $in: productIds } })
+					.toArray();
+
+		return products.map(function (productDocument) {
+			return new Product(productDocument);
+		});
     }
 
     updateImageData() {
@@ -62,7 +85,10 @@ class Product {
                 delete productData.image;
             }
 
-            await db.getDb().collection('products').updateOne({_id: productId}, {$set: productData  });
+            await db.getDb()
+					.collection("products")
+					.updateOne({ _id: productId }, { $set: productData });
+        
         } else {
             await db.getDb().collection('products').insertOne(productData);
         }
