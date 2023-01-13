@@ -1,6 +1,6 @@
 const cartItemUpdateFormElements = document.querySelectorAll(".cart-item-management");
 const cartTotalPriceElement = document.getElementById("cart-total-price");
-const cartBadge = document.querySelector(".nav-items .badge");
+const cartBadgeElements = document.querySelectorAll(".nav-items .badge");
 
 async function updateCartItem(event) {
 	event.preventDefault(); // to prevent the default form submission
@@ -48,8 +48,11 @@ async function updateCartItem(event) {
 	// point to cart.controller updatedCartData keys fixed i.e, updateItemPrice, newTotalPrice and newTotalQuantity.
 
 	cartTotalPriceElement.textContent =
-		responseData.updatedCartData.newTotalPrice.toFixed(2);	
-	cartBadge.textContent = responseData.updatedCartData.newTotalQuantity;
+		responseData.updatedCartData.newTotalPrice.toFixed(2);
+		
+	for( cartBadgeElement of cartBadgeElements) {
+		cartBadgeElement.textContent = responseData.updatedCartData.newTotalQuantity;
+	}
 }
 
 for(const formElement of cartItemUpdateFormElements) {
