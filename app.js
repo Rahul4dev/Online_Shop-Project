@@ -1,6 +1,6 @@
 // <Rahul>
 const path = require("path"); // builtin path module for file directory to look for the files related to the app.js
-
+require("dotenv").config();;
 const express = require("express");
 const csurf = require('csurf');
 const expressSession = require('express-session');
