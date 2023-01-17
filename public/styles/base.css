@@ -24,7 +24,7 @@ html {
     --color-black-contrast: black;
     
     --color-primary-blue-50 : rgb(151, 219, 242);
-    --color-primary-blue-100 : rgb(119, 206, 221);
+    --color-primary-blue-100 : rgb(190, 223, 229);
     --color-primary-blue-200 : rgb(106, 187, 206);
     --color-primary-blue-300 : rgb(80, 205, 205);
     --color-primary-blue-400 : rgb(27, 132, 167);
@@ -35,7 +35,7 @@ html {
     --color-error-light : rgb(246, 172, 143);
     --color-error-dark : rgb(211, 56, 56);
 
-    --color-bg-100 : rgb(153, 179, 193);
+    --color-bg-100 : rgb(229, 236, 240);
     --color-bg-200 : rgb(162, 163, 207);
 
     /* Spacing and sizes */

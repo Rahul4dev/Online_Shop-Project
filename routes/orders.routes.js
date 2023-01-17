@@ -11,4 +11,7 @@ router.get('/', ordersController.getOrders);
 
 router.post('/', ordersController.addOrder);
 
+router.get('/success', ordersController.getSuccess);
+
+router.get('/cancel', ordersController.getFailure);
 module.exports = router;
